@@ -189,6 +189,7 @@ http://localhost:8081/
 To ensure that the Redis Stream-based order payment system works reliably under various conditions, several test scenarios were conducted. Below are the descriptions and outcomes of each test scenario along with visual evidence (captured screenshots) to demonstrate the flow and results.  
 
 1. Successful Order Payment Processing  
+
 This scenario tests the normal flow where an order payment is created successfully and published to the Redis stream.  
 `POST http://localhost:8081/api/v1/order-payment` - Create a new order payment and trigger payment processing.  
 
@@ -223,12 +224,12 @@ This scenario tests the normal flow where an order payment is created successful
 }
 ```
 
-**Run this command to show latest entries only. This reads the stream in reverse order (latest first).**
+**Run this command to show latest entries only. This reads the stream in reverse order (latest first).**  
 ```bash
 XREVRANGE PAYMENT_SUCCESS + - COUNT 1
 ```
 
-**📸 Screenshot below shows the stream entry**
+**📸 Screenshot below shows the stream entry**  
 ![Image](https://github.com/user-attachments/assets/60efba3b-bee0-49f7-83be-0d91294ce16b)
 
 ---
