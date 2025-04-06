@@ -1,4 +1,4 @@
-# Order Payment Service with Redis Streams
+# Order Payment Service with Redis Streams as Reliable Message Producer for PAYMENT_SUCCESS / PAYMENT_FAILED Events
 
 ## 📖 Overview
 This project is a **Spring Boot REST API** for creating and processing order payments using **Redis Streams** as the message broker — replacing **Pub/Sub** for a more reliable, persistent, and scalable solution. Unlike traditional Pub/Sub mechanisms where messages are lost if no subscriber is listening, Redis Streams persist messages until they are explicitly **acknowledged**, ensuring **durability and reliability** in event-driven systems. Redis interprets the acknowledgment as: this message was correctly processed so it can be evicted from the consumer group.  
