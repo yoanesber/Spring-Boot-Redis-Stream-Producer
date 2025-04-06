@@ -13,10 +13,10 @@ This project is a **Spring Boot REST API** for creating and processing order pay
 
 Unlike Pub/Sub, Redis Streams offer:  
 
-- **Persistence**: Messages are stored in Redis until explicitly acknowledged by a consumer.
-- **Reliability**: Ensures that no messages are lost — perfect for critical systems like payments.
-- **Scalability**: Built-in support for consumer groups and horizontal scaling.
-- **Replayability**: Failed or pending messages can be retried, replayed, or analyzed.
+- **Persistence** – Messages are stored in Redis until explicitly acknowledged by a consumer.
+- **Reliability** – Ensures that no messages are lost — perfect for critical systems like payments.
+- **Scalability** – Built-in support for consumer groups and horizontal scaling.
+- **Replayability** – Failed or pending messages can be retried, replayed, or analyzed.
 
 
 ### 📌 Redis Stream Message ID (RecordId)  
@@ -204,5 +204,5 @@ XREVRANGE PAYMENT_SUCCESS + - COUNT 1
 
 
 ## 🔗 Related Repositories
-For the Redis Publisher implementation, check out [Spring Boot Redis Publisher with Lettuce](https://github.com/yoanesber/Spring-Boot-Redis-Publisher-Lettuce).
-For the Redis Subscriber implementation, check out [Spring Boot Redis Subscriber with Lettuce](https://github.com/yoanesber/Spring-Boot-Redis-Subscriber-Lettuce).
+- For the Redis Publisher implementation, check out [Spring Boot Redis Publisher with Lettuce](https://github.com/yoanesber/Spring-Boot-Redis-Publisher-Lettuce).
+- For the Redis Subscriber implementation, check out [Spring Boot Redis Subscriber with Lettuce](https://github.com/yoanesber/Spring-Boot-Redis-Subscriber-Lettuce).
