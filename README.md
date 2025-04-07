@@ -221,6 +221,8 @@ XREVRANGE PAYMENT_SUCCESS + - COUNT 1
 **📸 Screenshot below shows the stream entry**  
 ![Image](https://github.com/user-attachments/assets/60efba3b-bee0-49f7-83be-0d91294ce16b)
 
+**Conclusion:** After executing the `XREVRANGE PAYMENT_SUCCESS + - COUNT 1` command, the latest message in the `PAYMENT_SUCCESS` Redis stream was successfully retrieved. This confirms that the normal flow, where a valid order payment is processed and then published to the Redis stream, is working as expected. The message was acknowledged correctly, indicating that the system successfully handled the order payment event without any errors or retries.
+
 ---
 
 
