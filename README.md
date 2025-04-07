@@ -44,17 +44,10 @@ Each message published to a Redis stream is assigned a unique `RecordId` which a
 
 ### 🧩 Architecture Overview
 
-The system implements a reliable event-driven architecture using Redis Streams to handle Order Payment creation and processing. Below is a breakdown of the full flow:  
+This project implements a reliable event-driven architecture using Redis Streams to handle Order Payment creation and processing. Below is a breakdown of the full flow:  
 
 ```text
-[Client] ── (HTTP POST /order-payment)──▶ [Spring Boot API] ──▶ [Redis Stream: PAYMENT_SUCCESS or PAYMENT_FAILED]
-                                                                                         │
-                                                                                         ▼
-                                                                            [StreamConsumer - every 5s]
-                                                                                         │
-                                                                        ┌────────────────┬──────────────────────┐
-                                                                        ▼                ▼                      ▼
-                                                                [✔ Processed]   [🔁Retry Queue]  [❌ DLQ (failed after max attempts)]
+[Client]──▶ (HTTP POST /order-payment)──▶ [Spring Boot API] ──▶ [Redis Stream: PAYMENT_SUCCESS or PAYMENT_FAILED]
 ```
 
 #### 🔄 How It Works  
@@ -69,15 +62,11 @@ A client sends an HTTP POST request to the `/order-payment` endpoint with the ne
 3. Redis Streams  
 - Redis Streams persist these messages until they are acknowledged by a consumer.  
 - This allows for reliable message delivery, replay, and tracking of pending/unprocessed messages.  
-4. StreamConsumer (Scheduled Every 5 Seconds)  
-- A scheduled consumer job runs every 5 seconds, using `XREADGROUP` to read new or pending messages from the stream as part of a consumer group.  
-- It attempts to process each message accordingly:
-    - **✅Processed Successfully**: The consumer handles the message and sends an `XACK` to acknowledge its completion. The message is then removed from the pending list.
-    - **🔁Retry Queue**: If processing fails temporarily, the message is **not acknowledged**, allowing it to be retried in the next cycle. If its idle time exceeds a threshold, the consumer can reclaim the message for retry using `XCLAIM`.
-    - **❌Dead Letter Queue (DLQ)**: If the message fails after exceeding the maximum delivery attempts, it is moved to a DLQ stream for manual inspection, alerting, or later analysis.
 
 
 ### 🚀 Features  
+
+Below are the core features that make this solution robust and ready for real-world scenarios:  
 
 - ✅ Create and submit order payment requests via REST API  
 - 📨 StreamProducer sends events to Redis stream (`PAYMENT_SUCCESS` or `PAYMENT_FAILED`)  
@@ -236,6 +225,7 @@ XREVRANGE PAYMENT_SUCCESS + - COUNT 1
 
 
 ## 🔗 Related Repositories  
-- For the Redis Stream as Message Consumer implementation, check out [Spring Boot Redis Stream Consumer with ThreadPoolTaskScheduler Integration](https://github.com/yoanesber/Spring-Boot-Redis-Stream-Consumer).
-- For the Redis Publisher implementation, check out [Spring Boot Redis Publisher with Lettuce](https://github.com/yoanesber/Spring-Boot-Redis-Publisher-Lettuce).
-- For the Redis Subscriber implementation, check out [Spring Boot Redis Subscriber with Lettuce](https://github.com/yoanesber/Spring-Boot-Redis-Subscriber-Lettuce).
+
+- For the Redis Stream as Message Consumer implementation, check out [Spring Boot Redis Stream Consumer with ThreadPoolTaskScheduler Integration](https://github.com/yoanesber/Spring-Boot-Redis-Stream-Consumer).  
+- For the Redis Publisher implementation, check out [Spring Boot Redis Publisher with Lettuce](https://github.com/yoanesber/Spring-Boot-Redis-Publisher-Lettuce).  
+- For the Redis Subscriber implementation, check out [Spring Boot Redis Subscriber with Lettuce](https://github.com/yoanesber/Spring-Boot-Redis-Subscriber-Lettuce).  
