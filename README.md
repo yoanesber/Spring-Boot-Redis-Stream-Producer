@@ -159,7 +159,7 @@ sudo apt install openjdk-17-jdk
 echo $JAVA_HOME
 ```  
 
-### 🔌 2. Install Redis  
+### 📨 2. Install Redis  
 
 1. Redis doesn't provide official support for Windows, but you can run it via **WSL(Windows Subsystem for Linux)** or **Docker**:  
 
