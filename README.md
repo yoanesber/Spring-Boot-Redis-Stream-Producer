@@ -194,6 +194,7 @@ redis-cli ping
 5. (Optional) If you want to add a specific user with access to a specific stream channel, you can run the following command in **Redis CLI**:  
 
 ```bash
+redis-cli
 ACL SETUSER spring_producer on >P@ssw0rd ~stream:* +xadd +ping
 ACL SETUSER spring_consumer on >P@ssw0rd ~stream:* +xread +xreadgroup +xack +ping
 ```
