@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entity class representing the details of an order.
+ * This class is used to encapsulate the data related to each product in an order,
+ * including product information, pricing, quantity, and any discounts applied.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

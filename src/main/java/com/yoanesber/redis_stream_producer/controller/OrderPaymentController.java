@@ -13,6 +13,11 @@ import com.yoanesber.redis_stream_producer.entity.CustomHttpResponse;
 import com.yoanesber.redis_stream_producer.entity.OrderPayment;
 import com.yoanesber.redis_stream_producer.service.OrderPaymentService;
 
+/**
+ * OrderPaymentController handles HTTP requests related to order payments.
+ * It provides an endpoint to create a new order payment record.
+ */
+
 @RestController
 @RequestMapping("/api/v1/order-payment")
 public class OrderPaymentController {
@@ -31,8 +36,10 @@ public class OrderPaymentController {
             // Check if the order payment was created successfully.
             if (orderPayment == null) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new CustomHttpResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), 
-                        "Failed to create order payment", null));
+                    .body(new CustomHttpResponse(
+                        HttpStatus.INTERNAL_SERVER_ERROR.value(), 
+                        "Failed to create order payment", 
+                        null));
             }
 
             // Return a successful response with the created order payment details.
@@ -49,7 +56,10 @@ public class OrderPaymentController {
                     orderPayment.getCreatedAt())));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new CustomHttpResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null));
+                .body(new CustomHttpResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(), 
+                    e.getMessage(), 
+                    null));
         }
     }
 }

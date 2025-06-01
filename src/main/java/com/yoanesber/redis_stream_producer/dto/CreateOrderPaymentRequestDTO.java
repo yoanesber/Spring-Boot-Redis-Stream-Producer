@@ -7,6 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * CreateOrderPaymentRequestDTO is a Data Transfer Object (DTO) used to encapsulate
+ * the details required to create a new order payment request.
+ * It includes fields for various payment methods such as credit card, PayPal, and bank transfer.
+ */
 @Data
 @Getter
 @Setter

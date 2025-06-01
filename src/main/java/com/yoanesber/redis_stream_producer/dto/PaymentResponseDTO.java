@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Data Transfer Object (DTO) for Payment Responses.
+ * This class is used to encapsulate the data returned after processing a payment request.
+ * It includes fields for the transaction ID, payment status, and creation time.
+ */
+
 @Data
 @Getter
 @Setter

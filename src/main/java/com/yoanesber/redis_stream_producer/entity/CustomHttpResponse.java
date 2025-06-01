@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Custom HTTP Response class to standardize API responses.
+ * This class encapsulates the status code, timestamp, message, and any additional data.
+ * It is used to provide a consistent response structure across the application.
+ */
+
 @Data
 @Getter
 @Setter

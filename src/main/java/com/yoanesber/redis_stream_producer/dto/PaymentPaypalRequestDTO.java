@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Data Transfer Object (DTO) for PayPal Payment Requests.
+ * This class is used to encapsulate the data required for processing a PayPal payment request.
+ * It includes fields for the order ID, payment amount, currency, and PayPal email address.
+ */
+
 @Data
 @Getter
 @Setter

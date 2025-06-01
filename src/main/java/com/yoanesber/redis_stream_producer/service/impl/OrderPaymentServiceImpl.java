@@ -18,10 +18,21 @@ import com.yoanesber.redis_stream_producer.entity.OrderPayment;
 import com.yoanesber.redis_stream_producer.redis.MessageProducer;
 import com.yoanesber.redis_stream_producer.service.OrderPaymentService;
 
+/**
+ * OrderPaymentServiceImpl implements the OrderPaymentService interface.
+ * It provides methods to create an order payment, validate payment details,
+ * process payments through different methods (credit card, PayPal, bank transfer),
+ * and handle order retrieval and validation.
+ * This service interacts with a message producer to publish payment events
+ * to a Redis stream for further processing.
+ */
+
 @Service
 public class OrderPaymentServiceImpl implements OrderPaymentService {
-
     private final MessageProducer messageProducer;
+
+    private static final String PAYMENT_SUCCESS_STREAM = "PAYMENT_SUCCESS";
+    private static final String PAYMENT_FAILED_STREAM = "PAYMENT_FAILED";
 
     public OrderPaymentServiceImpl(MessageProducer messageProducer) {
         this.messageProducer = messageProducer;
@@ -151,7 +162,7 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
 
             return new PaymentResponseDTO(transactionId, paymentStatus);
         } catch (InterruptedException e) {
-            messageProducer.produce("PAYMENT_FAILED", paymentCCRequestDTO);
+            messageProducer.produce(PAYMENT_FAILED_STREAM, paymentCCRequestDTO);
             return null;
         }
     }
@@ -176,7 +187,7 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
 
             return new PaymentResponseDTO(transactionId, paymentStatus);
         } catch (InterruptedException e) {
-            messageProducer.produce("PAYMENT_FAILED", paymentPaypalRequestDTO);
+            messageProducer.produce(PAYMENT_FAILED_STREAM, paymentPaypalRequestDTO);
             return null;
         }
     }
@@ -201,7 +212,7 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
 
             return new PaymentResponseDTO(transactionId, paymentStatus);
         } catch (InterruptedException e) {
-            messageProducer.produce("PAYMENT_FAILED", paymentBankRequestDTO);
+            messageProducer.produce(PAYMENT_FAILED_STREAM, paymentBankRequestDTO);
             return null;
         }
     }
@@ -246,7 +257,7 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
 
         // Check if the payment response is null (indicating a failure)
         if (paymentResponse == null) {
-            messageProducer.produce("PAYMENT_FAILED", orderPaymentDTO);
+            messageProducer.produce(PAYMENT_FAILED_STREAM, orderPaymentDTO);
             throw new IllegalArgumentException("Payment processing failed");
         }
 
@@ -256,8 +267,8 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
 
         // Check if the payment status is "FAILED"
         if (paymentStatus.equalsIgnoreCase("FAILED") || transactionId == null || transactionId.isEmpty()) {
-            // If payment failed, publish a Redis event to the "PAYMENT_FAILED" channel
-            messageProducer.produce("PAYMENT_FAILED", orderPaymentDTO);
+            // If payment failed, publish a Redis event to the PAYMENT_FAILED_STREAM channel
+            messageProducer.produce(PAYMENT_FAILED_STREAM, orderPaymentDTO);
             throw new IllegalArgumentException("Payment processing failed with status: " + paymentStatus + " and transaction ID: " + transactionId);
         }
 
@@ -286,8 +297,8 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
 
         // Save the OrderPayment entity to the database
         
-        // Publish a Redis event to the "PAYMENT_SUCCESS" channel if successful
-        messageProducer.produce("PAYMENT_SUCCESS", orderPayment);
+        // Publish a Redis event to the PAYMENT_SUCCESS_STREAM channel if successful
+        messageProducer.produce(PAYMENT_SUCCESS_STREAM, orderPayment);
 
         // For simplicity, we will return the OrderPayment object directly
         return orderPayment;

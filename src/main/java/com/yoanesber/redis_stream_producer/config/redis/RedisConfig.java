@@ -1,4 +1,4 @@
-package com.yoanesber.redis_stream_producer.config;
+package com.yoanesber.redis_stream_producer.config.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -18,6 +18,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * Configuration class for Redis connection using Lettuce.
+ * This class sets up the Redis connection factory, Redis template, and serializers.
+ * It uses properties defined in application.properties or application.yml for configuration.
+ * The Redis connection is configured to use a standalone Redis server with specified host, port, username, password, and timeouts.
+ */
 @Configuration
 public class RedisConfig {
 

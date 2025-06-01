@@ -11,6 +11,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Order entity representing a customer's order in the system.
+ * This class contains details about the order, including customer information,
+ * payment details, shipping information, and a list of order details.
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

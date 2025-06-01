@@ -11,7 +11,16 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import com.yoanesber.redis_stream_producer.util.HelperUtil;
+import com.yoanesber.redis_stream_producer.mapper.Converter;
+
+/**
+ * MessageProducer is a component that handles the production of messages to a Redis stream.
+ * It generates unique IDs for each message based on the current timestamp and a sequence number,
+ * ensuring that even if multiple messages are produced in the same millisecond, they will have unique IDs.
+ * 
+ * The component uses a RedisTemplate to interact with the Redis stream and provides methods to publish messages.
+ * The messages are stored in a Redis stream with a maximum length, and older messages are trimmed when the limit is reached.
+ */
 
 @Component
 public class MessageProducer {
@@ -92,7 +101,7 @@ public class MessageProducer {
             RecordId generateID = generateID();
 
             // Creating a map from the payload object
-            Map<String, Object> messageMap = HelperUtil.convertToMap(payload);
+            Map<String, Object> messageMap = Converter.toMap(payload);
             if (messageMap == null) {
                 logger.error("Failed to convert payload to map: {}", payload);
                 throw new RuntimeException("Failed to convert payload to map: " + payload);

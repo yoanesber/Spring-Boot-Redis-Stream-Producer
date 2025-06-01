@@ -8,6 +8,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * DTO for creating an order payment response.
+ * This class is used to encapsulate the response data when an order payment is created.
+ * It includes details such as order ID, transaction ID, payment status, amount, currency, payment method, and creation time.
+ * It is annotated with Lombok annotations to reduce boilerplate code for getters, setters, and constructors.
+ */
+
 @Data
 @Getter
 @Setter

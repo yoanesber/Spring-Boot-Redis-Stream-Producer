@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Data Transfer Object (DTO) for Bank Payment Requests.
+ * This class is used to encapsulate the data required for processing a bank payment request.
+ * It includes fields for the order ID, payment amount, currency, bank account number, and bank name.
+ */
+
 @Data
 @Getter
 @Setter

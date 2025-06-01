@@ -1,6 +1,7 @@
 package com.yoanesber.redis_stream_producer.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.yoanesber.redis_stream_producer.config.serializer.InstantSerializer;
 import java.math.BigDecimal;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.yoanesber.redis_stream_producer.util.InstantSerializer;
+/**
+ * Entity class representing the payment details of an order.
+ * This class is used to encapsulate the payment information, including
+ * the order ID, payment amount, currency, payment method,
+ * payment status, and other relevant details.
+ */
 
 @Data
 @NoArgsConstructor

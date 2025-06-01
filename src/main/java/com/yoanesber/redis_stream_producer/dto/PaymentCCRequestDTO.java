@@ -7,6 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Data Transfer Object (DTO) for Credit Card Payment Requests.
+ * This class is used to encapsulate the data required for processing a credit card payment request.
+ * It includes fields for the order ID, payment amount, currency, credit card number,
+ * credit card expiry date, and credit card CVV (Card Verification Value).
+ */
+
 @Data
 @Getter
 @Setter
